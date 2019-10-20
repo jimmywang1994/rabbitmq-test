@@ -18,13 +18,6 @@ public class Sender {
     @Autowired
     private RabbitTemplate rabbitAmqpTemplate;
 
-    //exchange 交换器名称
-    @Value("${mq.config.exchange}")
-    private String exchange;
-
-    //routingkey 路由键
-    @Value("${mq.config.queue.info.routing.key}")
-    private String routingkey;
     /*
      * 发送消息的方法
      */
@@ -36,6 +29,6 @@ public class Sender {
          * 参数二：路由键。 类型是String
          * 参数三：消息，是要发送的消息内容对象。类型是Object
          */
-        this.rabbitAmqpTemplate.convertAndSend(this.exchange, this.routingkey, msg);
+        this.rabbitAmqpTemplate.convertAndSend(MQConstants.EXCHANGE_NAME, MQConstants.ROUTING_KEY_NAME, msg);
     }
 }
